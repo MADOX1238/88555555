@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دردشة مع بوت</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .chat-container {
+            width: 400px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .messages {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .messages div {
+            margin-bottom: 10px;
+        }
+        .user {
+            text-align: right;
+            color: blue;
+        }
+        .bot {
+            text-align: left;
+            color: green;
+        }
+        input {
+            width: calc(100% - 60px);
+            padding: 10px;
+        }
+        button {
+            padding: 10px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="messages" id="messages"></div>
+        <input type="text" id="userInput" placeholder="اكتب رسالتك هنا...">
+        <button onclick="sendMessage()">إرسال</button>
+    </div>
+
+    <script>
+        // قائمة الأسئلة والأجوبة
+        const responses = {
+            "مرحبا": "أهلاً بك! كيف يمكنني مساعدتك؟",
+            "كيف حالك؟": "أنا مجرد بوت، لكني بخير! شكراً لسؤالك.",
+            "ما اسمك؟": "أنا بوت دردشة بسيط.",
+            "ما هو الذكاء الاصطناعي؟": "الذكاء الاصطناعي هو قدرة الحواسيب على محاكاة الذكاء البشري."
+        };
+
+        function sendMessage() {
+            const userInput = document.getElementById('userInput').value;
+            if (!userInput) return;
+
+            const messagesDiv = document.getElementById('messages');
+            
+            // عرض رسالة المستخدم
+            const userMessage = `<div class="user">أنت: ${userInput}</div>`;
+            messagesDiv.innerHTML += userMessage;
+
+            // البحث عن الرد المناسب
+            const botReply = responses[userInput] || "عذرًا، لا أفهم سؤالك.";
+
+            // عرض رد البوت
+            const botMessage = `<div class="bot">بوت: ${botReply}</div>`;
+            messagesDiv.innerHTML += botMessage;
+
+            // تنظيف صندوق الإدخال
+            document.getElementById('userInput').value = '';
+        }
+    </script>
+
+</body></html>
